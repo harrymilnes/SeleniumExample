@@ -7,4 +7,5 @@ public class AppSettings
     public WebDriverBrowser WebDriverBrowser { get; set; }
     public string BooleanApiUrl { get; set; }
     public string DemoCounterUrl { get; set; }
+    public string CounterApiUrl { get; set; }
 }

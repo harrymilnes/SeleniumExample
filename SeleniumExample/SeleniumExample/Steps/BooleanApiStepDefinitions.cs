@@ -10,7 +10,7 @@ namespace SeleniumExample.Steps
     public class BooleanApiStepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
-        private static string ApiResponseScenarioContextKey => "api-response";
+        private static string ApiResponseScenarioContextKey => "boolean-api-response";
     
         private readonly AppSettings _appSettings;
     
@@ -39,6 +39,7 @@ namespace SeleniumExample.Steps
         public void ThenTheApiResponseShouldBeSuccess()
         {
             var apiResponse = _scenarioContext.Get<IFlurlResponse>(ApiResponseScenarioContextKey);
+            
             Assert.AreEqual(200, apiResponse.StatusCode);
         }
 
@@ -54,6 +55,7 @@ namespace SeleniumExample.Steps
         public void ThenTheApiResponseShouldBeBad()
         {
             var apiResponse = _scenarioContext.Get<IFlurlResponse>(ApiResponseScenarioContextKey);
+            
             Assert.AreEqual(400, apiResponse.StatusCode);
         }
     }

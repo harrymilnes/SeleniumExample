@@ -52,10 +52,22 @@ namespace SeleniumExample.Support
 
         private static void SetWebDriverInstance(IActivatedEventArgs<object> activatedEventArgs)
         {
-            if (activatedEventArgs.Instance is not Webpage.Webpage webpage) return;
+            if (ScenarioContextContainsNoBrowserScenarioTag(activatedEventArgs)) 
+                return;
+
+            if (activatedEventArgs.Instance is not Webpage.Webpage webpage) 
+                return;
             
             var webDriver = activatedEventArgs.Context.Resolve<IWebDriver>();
             webpage.WebDriver = webDriver;
+        }
+
+        private static bool ScenarioContextContainsNoBrowserScenarioTag(IActivatedEventArgs<object> activatedEventArgs)
+        {
+            var scenarioContext = activatedEventArgs.Context.Resolve<ScenarioContext>();
+            var scenarioContextTagContainsNoBrowser = scenarioContext.ScenarioInfo.Tags.Contains(Constants.NoBrowserTag);
+
+            return scenarioContextTagContainsNoBrowser;
         }
     }
 }
