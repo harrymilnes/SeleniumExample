@@ -1,8 +1,6 @@
-﻿using Flurl;
-using Flurl.Http;
-using Microsoft.Extensions.Options;
+﻿using Flurl.Http;
 using NUnit.Framework;
-using SeleniumExample.Support.Configuration;
+using SeleniumExample.ApiClients;
 using SeleniumExample.Webpage;
 
 namespace SeleniumExample.Steps;
@@ -12,15 +10,14 @@ public class CounterStepDefinitions
 {
     private readonly DemoWebpage _demoWebpage;
     private static string ApiResponseScenarioContextKey => "count-api-response";
-
-    private readonly AppSettings _appSettings;
     private readonly ScenarioContext _scenarioContext;
+    private readonly ICounterApiClient _counterApiClient;
     
-    public CounterStepDefinitions(DemoWebpage demoWebpage, IOptions<AppSettings> options, ScenarioContext scenarioContext)
+    public CounterStepDefinitions(DemoWebpage demoWebpage, ScenarioContext scenarioContext, ICounterApiClient counterApiClient)
     {
         _demoWebpage = demoWebpage;
         _scenarioContext = scenarioContext;
-        _appSettings = options.Value;
+        _counterApiClient = counterApiClient;
     }
 
     [Given(@"the user is on the counter webpage")]
@@ -45,7 +42,6 @@ public class CounterStepDefinitions
     public void ThenTheCounterValueShouldBe(int expectedValue)
     {
         var counterValue = _demoWebpage.GetCounterValue();
-        
         Assert.AreEqual(expectedValue.ToString(), counterValue);
     }
 
@@ -55,17 +51,10 @@ public class CounterStepDefinitions
         _demoWebpage.ClickCounterButton();
     }
 
-    private IFlurlRequest CreateCountApiRequest(int currentNumber)
-    {
-        return _appSettings.CounterApiUrl
-            .AppendPathSegment($"/increment/{currentNumber}")
-            .AllowAnyHttpStatus();
-    }
-    
     [Given(@"the api is called with a currentNumber of (.*)")]
     public async Task GivenTheApiIsCalledWithACurrentNumberOf(int currentNumber)
     {
-        var apiRequest = CreateCountApiRequest(currentNumber);
+        var apiRequest = _counterApiClient.CreateCountApiRequest(currentNumber);
         var flurlResponse = await apiRequest.PostAsync();
         _scenarioContext.Set(flurlResponse, ApiResponseScenarioContextKey);
     }
@@ -75,7 +64,6 @@ public class CounterStepDefinitions
     {
         var apiResponse = _scenarioContext.Get<IFlurlResponse>(ApiResponseScenarioContextKey);
         var content = await apiResponse.ResponseMessage.Content.ReadAsStringAsync();
-
         Assert.AreEqual(int.Parse(content), expectedNumber);
     }
 }

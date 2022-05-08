@@ -4,6 +4,7 @@ using Autofac.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using OpenQA.Selenium;
+using SeleniumExample.ApiClients;
 using SeleniumExample.Support.Configuration;
 using SeleniumExample.Support.Enums;
 using SpecFlow.Autofac;
@@ -20,8 +21,16 @@ namespace SeleniumExample.Support
             RegisterSpecflowBindings(containerBuilder);
 
             RegisterConfiguration(containerBuilder, configuration);
+
+            RegisterApiClients(containerBuilder);
             
             RegisterWebDriver(configuration.GetValue<WebDriverBrowser>("WebDriverBrowser"), containerBuilder);
+        }
+
+        private static void RegisterApiClients(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<BooleanApiClient>().As<IBooleanApiClient>();
+            containerBuilder.RegisterType<CounterApiClient>().As<ICounterApiClient>();
         }
 
         private static void RegisterSpecflowBindings(ContainerBuilder containerBuilder)
@@ -52,7 +61,12 @@ namespace SeleniumExample.Support
 
         private static void SetWebDriverInstance(IActivatedEventArgs<object> activatedEventArgs)
         {
-            if (ScenarioContextContainsNoBrowserScenarioTag(activatedEventArgs)) 
+            var scenarioContext = activatedEventArgs.Context.Resolve<ScenarioContext>();
+
+            if (ScenarioContextContainsApiScenarioTag(scenarioContext)) 
+                return;
+            
+            if (!ScenarioContextContainsBrowserScenarioTag(scenarioContext)) 
                 return;
 
             if (activatedEventArgs.Instance is not Webpage.Webpage webpage) 
@@ -62,12 +76,16 @@ namespace SeleniumExample.Support
             webpage.WebDriver = webDriver;
         }
 
-        private static bool ScenarioContextContainsNoBrowserScenarioTag(IActivatedEventArgs<object> activatedEventArgs)
+        private static bool ScenarioContextContainsApiScenarioTag(IScenarioContext scenarioContext)
         {
-            var scenarioContext = activatedEventArgs.Context.Resolve<ScenarioContext>();
-            var scenarioContextTagContainsNoBrowser = scenarioContext.ScenarioInfo.Tags.Contains(Constants.NoBrowserTag);
-
-            return scenarioContextTagContainsNoBrowser;
+            var scenarioContextTagContainsApiTestTag = scenarioContext.ScenarioInfo.Tags.Contains(Constants.ApiTestTag);
+            return scenarioContextTagContainsApiTestTag;
+        }
+        
+        private static bool ScenarioContextContainsBrowserScenarioTag(IScenarioContext scenarioContext)
+        {
+            var scenarioContextTagContainsBrowserTestTag = scenarioContext.ScenarioInfo.Tags.Contains(Constants.BrowserTestTag);
+            return scenarioContextTagContainsBrowserTestTag;
         }
     }
 }

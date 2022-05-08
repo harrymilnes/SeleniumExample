@@ -75,12 +75,14 @@ namespace SeleniumExample.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UI: The default value is 0")]
+        [NUnit.Framework.CategoryAttribute("browser-test")]
         public void UITheDefaultValueIs0()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "browser-test"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UI: The default value is 0", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -90,16 +92,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 6
  testRunner.Given("the user is on the counter webpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 6
+#line 7
  testRunner.And("the counter has not been clicked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 7
+#line 8
  testRunner.When("the counter is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 8
+#line 9
  testRunner.Then("the counter value should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -108,12 +110,14 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("UI: The counter button increments when clicked")]
+        [NUnit.Framework.CategoryAttribute("browser-test")]
         public void UITheCounterButtonIncrementsWhenClicked()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "browser-test"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UI: The counter button increments when clicked", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 10
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -123,16 +127,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 13
  testRunner.Given("the user is on the counter webpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 12
+#line 14
  testRunner.And("the counter has been clicked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 13
+#line 15
  testRunner.When("the counter is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 16
  testRunner.Then("the counter value should be 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -141,16 +145,16 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("API: The API returns an increment of the input value")]
-        [NUnit.Framework.CategoryAttribute("no-browser")]
+        [NUnit.Framework.CategoryAttribute("api-test")]
         [NUnit.Framework.CategoryAttribute("smoke-test")]
         public void APITheAPIReturnsAnIncrementOfTheInputValue()
         {
             string[] tagsOfScenario = new string[] {
-                    "no-browser",
+                    "api-test",
                     "smoke-test"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("API: The API returns an increment of the input value", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+#line 20
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -160,10 +164,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 19
+#line 21
  testRunner.Given("the api is called with a currentNumber of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
+#line 22
  testRunner.And("the api response should be success with the value of 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

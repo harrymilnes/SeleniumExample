@@ -76,13 +76,15 @@ namespace SeleniumExample.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The api should return a success response if the passExpected value is true")]
         [NUnit.Framework.CategoryAttribute("smoke-test")]
+        [NUnit.Framework.CategoryAttribute("api-test")]
         public void TheApiShouldReturnASuccessResponseIfThePassExpectedValueIsTrue()
         {
             string[] tagsOfScenario = new string[] {
-                    "smoke-test"};
+                    "smoke-test",
+                    "api-test"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The api should return a success response if the passExpected value is true", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -92,10 +94,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 7
  testRunner.Given("the api is called with a passExpected value of true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 7
+#line 8
  testRunner.Then("the api response should be success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -104,12 +106,14 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The api should return a bad response if the passExpected value is false")]
+        [NUnit.Framework.CategoryAttribute("api-test")]
         public void TheApiShouldReturnABadResponseIfThePassExpectedValueIsFalse()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "api-test"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The api should return a bad response if the passExpected value is false", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 9
+#line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -119,10 +123,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 10
+#line 12
  testRunner.Given("the api is called with a passExpected value of false", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 11
+#line 13
  testRunner.Then("the api response should be bad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
